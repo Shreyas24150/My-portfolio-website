@@ -37,7 +37,7 @@ jobs:
       - name: Build & Push Frontend
         uses: docker/build-push-action@v4
         with:
-          context: ./frontend
+          context: ./frontend/my-portfolio
           file: ./frontend/my-portfolio/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/portfolio-frontend:latest
