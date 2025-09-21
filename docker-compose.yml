@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    image: shreyas24150/portfolio-backend:latest
+    container_name: backend
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build: ./frontend/my-portfolio
+    image: shreyas24150/portfolio-frontend:latest
+    container_name: frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
