@@ -9,7 +9,7 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/contact", formData);
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/contact`, formData);
       alert("Message sent successfully!");
       setFormData({ name: "", email: "", message: "" });
     } catch (err) {

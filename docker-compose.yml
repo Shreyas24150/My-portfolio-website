@@ -16,3 +16,12 @@ services:
       - "3000:80"
     depends_on:
       - backend
+
+  nginx:
+    build: ./infrastructure/nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend

@@ -42,6 +42,16 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/portfolio-frontend:latest
 
+      # Build & Push Nginx
+      - name: Build & Push Nginx
+        uses: docker/build-push-action@v4
+        with:
+          context: ./infrastructure/nginx
+          file: ./infrastructure/nginx/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/portfolio-nginx:latest
+
+
       # Deploy to EC2
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.10
@@ -53,11 +63,18 @@ jobs:
             echo "Pulling latest Docker images..."
             docker pull ${{ secrets.DOCKER_USERNAME }}/portfolio-frontend:latest
             docker pull ${{ secrets.DOCKER_USERNAME }}/portfolio-backend:latest
+            docker pull ${{ secrets.DOCKER_USERNAME }}/portfolio-nginx:latest
 
             echo "Stopping old containers..."
             docker stop frontend || true && docker rm frontend || true
             docker stop backend || true && docker rm backend || true
+            docker stop nginx || true && docker rm nginx || true
 
             echo "Starting new containers..."
-            docker run -d -p 80:80 --name frontend ${{ secrets.DOCKER_USERNAME }}/portfolio-frontend:latest
-            docker run -d -p 5000:5000 --name backend ${{ secrets.DOCKER_USERNAME }}/portfolio-backend:latest
+            docker run -d --name frontend ${{ secrets.DOCKER_USERNAME }}/portfolio-frontend:latest
+            docker run -d --name backend ${{ secrets.DOCKER_USERNAME }}/portfolio-backend:latest
+            docker run -d -p 80:80 --name nginx \
+              --link frontend:frontend \
+              --link backend:backend \
+              ${{ secrets.DOCKER_USERNAME }}/portfolio-nginx:latest
+
