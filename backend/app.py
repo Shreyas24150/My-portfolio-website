@@ -11,7 +11,13 @@ EMAIL_PASS = os.getenv("EMAIL_PASS")
 TO_EMAIL = os.getenv("TO_EMAIL")
 
 app = Flask(__name__)
-CORS(app, origins="https://sparkling-jelly-b85487.netlify.app")
+CORS(app, resources={r"/*": {"origins": ["https://sparkling-jelly-b85487.netlify.app", "http://localhost:5173"]}})
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', 'https://sparkling-jelly-b85487.netlify.app')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
+    return response
 
 def send_email(name, email, message):
     msg = MIMEMultipart()
