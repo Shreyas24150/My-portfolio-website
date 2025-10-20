@@ -11,7 +11,7 @@ EMAIL_PASS = os.getenv("EMAIL_PASS")
 TO_EMAIL = os.getenv("TO_EMAIL")
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins="https://sparkling-jelly-b85487.netlify.app/")
 
 def send_email(name, email, message):
     msg = MIMEMultipart()
