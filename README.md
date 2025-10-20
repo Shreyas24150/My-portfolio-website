@@ -10,6 +10,7 @@ This project showcases:
 - **frontend skills** with React, Tailwind CSS, and responsive design.
 - **backend knowledge** with Flask REST API and email integration.
 - **DevOps expertise** with Docker, Render, and Netlify deployment.
+- **CI/CD pipeline** with GitHub Actions for automated deployment.
 
 > 🧠 Designed as a real-world DevOps project — combining code, CI/CD, infrastructure, and cloud hosting.
 
@@ -25,7 +26,10 @@ This project showcases:
 | **Infrastructure** | Docker, Docker Compose |
 | **Hosting** | Netlify (frontend), Render (backend) |
 | **Version Control** | Git & GitHub |
-| **Optional** | Terraform, AWS EC2, Nginx |
+| **CI/CD** | GitHub Actions |
+| **Cloud Services** | Render, Netlify |
+| **Security** | Environment variables for secrets |
+| **Security** | CORS configuration for API security |
 ```
 ---
 
@@ -64,7 +68,7 @@ My-portfolio-website/
 │ └── Dockerfile
 │
 ├──.github/workflows/ # Optional CI/CD pipeline
-|  ├──docker-build-push.yml
+|  └── docker-build-push.yml
 |
 ├── docker-compose.yml # Optional for local development
 ├── .env # Environment variables (not committed)
